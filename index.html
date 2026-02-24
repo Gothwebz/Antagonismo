@@ -2,17 +2,30 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Close ur eyes</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Antagonismo</title>
   <style>
     body, html { margin:0; padding:0; height:100%; overflow:hidden; background:#000; }
-    iframe { width:100%; height:100%; border:none; display:block; }
+    iframe { width:100vw; height:100vh; border:none; display:block; }
+    #error { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); color:#f00; font-family:monospace; text-align:center; display:none; }
   </style>
 </head>
 <body>
-  <iframe 
-    src="https://firefox.gothwebz.workers.dev/" 
-    allowfullscreen 
-    allow="autoplay; fullscreen">
-  </iframe>
+  <iframe id="mainFrame" allowfullscreen allow="autoplay; fullscreen"></iframe>
+  <div id="error">Código ID inválido o no autorizado</div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const userId = params.get('id');
+
+    let workerUrl = 'https://firefox.gothwebz.workers.dev';
+
+    if (userId) {
+      workerUrl += `?secret=${encodeURIComponent(userId)}`; 
+      document.getElementById('mainFrame').src = workerUrl;
+    } else {
+      document.getElementById('error').style.display = 'block';
+    }
+  </script>
 </body>
 </html>
