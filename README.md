@@ -1,0 +1,2 @@
+# Antagonismo
+Si.
